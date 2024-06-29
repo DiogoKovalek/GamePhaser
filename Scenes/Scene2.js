@@ -1,5 +1,3 @@
-
-
 class Scene2 extends Phaser.Scene {
   constructor() {
     super("playGame");
@@ -27,6 +25,7 @@ class Scene2 extends Phaser.Scene {
         this.player.setCollideWorldBounds(true); // evita sair da tela
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); // para o update do jogo
+        this.projectiles = this.add.group(); //lista para update de classes
 
 
         this.input.on("gameobjectdown", this.destroyShip, this);
@@ -49,8 +48,15 @@ class Scene2 extends Phaser.Scene {
         this.movePlayerManager();
 
         if(Phaser.Input.Keyboard.JustDown(this.spacebar)){
-            console.log("Fogo!");
+            this.shootBeam();
         }
+
+        for(var i = 0; i < this.projectiles.getChildren().length; i++){
+            var beam = this.projectiles.getChildren()[i];
+            beam.update();
+        }
+
+        
     }
 
     moveShip(ship, speed){
@@ -90,5 +96,9 @@ class Scene2 extends Phaser.Scene {
             this.player.setVelocityY(0);
         }
         
+    }
+
+    shootBeam(){
+        var beam = new Beam(this);
     }
 }
