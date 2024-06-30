@@ -1,19 +1,21 @@
 var config = {
-    width: 256,
-    height: 272,
+    scale: {
+        width:240,
+        height:208,
+        zoom:4
+    },
+    canvasStyle: "game-container",
     bacgroundColor: 0x000000,
-    scene: [Scene1, Scene2],
+    scene: [SCLoading, SCGameL1],
     pixelArt: true,
+    parent: "game-container", //classe para css
     physics: {
-        default: "arcade",    
+        default: "arcade",
         arcade: {
             debug: false
         }
     }
 }
 
-var gameSettings = {
-    playerSpeed: 200
-}
 
 var game = new Phaser.Game(config);
