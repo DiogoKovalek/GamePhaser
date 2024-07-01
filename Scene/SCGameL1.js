@@ -19,7 +19,7 @@ class SCGameL1 extends Phaser.Scene{
 
         //inserindo camadas ========================================================
         // L -> Layer
-        const LColider = map.createLayer("Colider", tilesetColider, 0, 0); // insira a camada
+        this.LColider = map.createLayer("Colider", tilesetColider, 0, 0); // insira a camada
         const LGrass = map.createLayer("Grass", tilesetGrass, 0, 0);
         const LFloor = map.createLayer("Floor", tilesetFloor, 0, 0);
         const LWater = map.createLayer("Water", tilesetWater, 0, 0);
@@ -27,21 +27,35 @@ class SCGameL1 extends Phaser.Scene{
         const LFlower = map.createLayer("Flower", tilesetFlower, 0, 0);
         const LObjects = map.createLayer("Objects", tilesetObjects, 0, 0);
         
+        //Colisao
+        this.LColider.setCollisionByProperty({Colider: true});
+
         //==========================================================================
+
+        this.listEntidades = this.add.group(); // lista das entidades para os metodos
   
         //this.player = this.physics.add.sprite(40, 40, "player");
         this.player = new Player(this, 40, 40);
+        this.physics.add.collider(this.player, this.LColider);
         
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0,0, map.width*16, map.height*16);
 
-        this.cursorKeys = this.input.keyboard.createCursorKeys(); // recebe dados do teclado
-        
+        this.cursorKeys = this.input.keyboard.createCursorKeys(); // recebe dados do teclado  
+
     }
 
     update(){
-        
+
+        for(var i = 0; i < this.listEntidades.getChildren().length; i++){
+            var ent = this.listEntidades.getChildren()[i];
+            ent.update();
+        }
+
+        //this.player.x += 1
+        //this.movePlayer(this.player);
     }
+    
 
     
 }
