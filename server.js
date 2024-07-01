@@ -25,12 +25,24 @@ app.use(session({
 
 
 app.get('/', (req, res) => {
-    res.send('Welcome to our application Please click the link below to go to the login page:<br><a href="/login">Go to Login</a>');
+    res.send('Welcome to our application Please click the link below to go to the login page:<br><a href="/login">Go to Login</a><br><a href="/register">Go to Register</a>');
   });
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
     fs.readFile(path.join(__dirname, 'public', 'login.html'), (err, data) => {
+      if (err) {
+        res.writeHead(404);
+        res.end(JSON.stringify(err));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
+    });
+  });
+
+  app.get('/register',(req, res) => {
+    fs.readFile(path.join(__dirname, 'public', 'register.html'), (err, data) => {
       if (err) {
         res.writeHead(404);
         res.end(JSON.stringify(err));
@@ -100,6 +112,33 @@ app.get('/login', (req, res) => {
     }
   });
 
+  
+  app.post('/register', async (req, res) => {
+    const { username, password, email} = req.body;
+  
+    try {      
+      const existingUser = await operator('read', username);  
+      if (existingUser.length > 0) {
+        return res.status(400).send('Username already taken. Please choose another one.');
+      }
+  
+      // Hash the password before storing it in the database
+      //const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Insert the new user into the database
+      const newUser = await operator('create',username, null,password,1,email);
+      const testUser = await operator('read', newUser);
+      if (testUser.length > 0) {
+        res.status(201).send('Registration successful. Please log in.');
+      } else {
+        res.status(500).send('Failed to register. Please try again later.');
+      }
+    } catch (err) {
+      console.error('Database error during registration:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
 
 // Start the server
 const PORT = process.env.PORT || 3000;
