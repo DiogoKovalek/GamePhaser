@@ -26,6 +26,7 @@
         input[type="password"] {
             width: 100%;
             padding: 10px;
+            padding-right: 0px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -47,13 +48,14 @@
 <body>
 
 <div class="container">
-    <h2>WIP
+    <h2>Registro?
         
     </h2>
-    <form action="login.js" method="post">
+    <form action="/register" method="post">
         <input type="text" name="username" placeholder="Username" required>
+        <input type="text" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
+        <input type="submit" value="Registrar">
     </form>
 </div>
 
