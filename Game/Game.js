@@ -2,7 +2,7 @@ var config = {
     scale: {
         width:240,
         height:208,
-        zoom:4
+        zoom:3
     },
     canvasStyle: "game-container",
     bacgroundColor: 0x000000,
