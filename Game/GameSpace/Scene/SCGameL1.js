@@ -29,7 +29,6 @@ class SCGameL1 extends Phaser.Scene{
         
         //Colisao
         this.LColider.setCollisionByProperty({Colider: true});
-
         //==========================================================================
 
         this.listEntidades = this.add.group(); // lista das entidades para os metodos

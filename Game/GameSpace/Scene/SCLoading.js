@@ -3,13 +3,16 @@ class SCLoading extends Phaser.Scene{
         super("loadingGame");
     }
 
+    
+
     preload(){
         //Mapa ====================================
-        this.load.image("tiles", "/Assets/World/Overworld.png");
-        this.load.tilemapTiledJSON("map1", "/Assets/World/map.json");
+        var caminho = "/Game/GameSpace/Assets/";
+        this.load.image("tiles", caminho + "World/Overworld.png");
+        this.load.tilemapTiledJSON("map1", caminho + "World/map.json");
         //=========================================
 
-        this.load.spritesheet("player", "/Assets/mage.png",{
+        this.load.spritesheet("player", caminho + "mage.png",{
             frameWidth:16,
             frameHeight:16
         })
