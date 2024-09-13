@@ -1,4 +1,8 @@
 
+import {SCGameCard} from "../Scene/SCGameCard.js";
+
+const gameWidth = 1920;
+const gameHeight = 1080;
 
 var config = {
     /*scale: {
@@ -7,12 +11,15 @@ var config = {
         zoom:3   
     },*/
     
-    mode: Phaser.Scale.FIT, // Ajusta o jogo à área disponível mantendo a proporção
-    width: window.innerWidth, 
-    height: window.innerHeight,  
+    type: Phaser.AUTO,
+    width: gameWidth, 
+    height: gameHeight,  
+    scale: {
+        mode:Phaser.Scale.FIT,
+    },
     canvasStyle: "game-container",
     bacgroundColor: 0x000000,
-    scene: [TextSCCardGame],
+    scene: [SCGameCard],
     pixelArt: true,
     parent: "game-container", //classe para css
     physics: {
@@ -22,5 +29,7 @@ var config = {
         }
     }
 }
+
+
 
 var game = new Phaser.Game(config);

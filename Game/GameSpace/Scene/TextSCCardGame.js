@@ -16,7 +16,7 @@ class TextSCCardGame extends Phaser.Scene{
 
         const sprCard = this.textures.get('card').getFrameNames();
 
-        let x = 350;
+        let x = game;
         let y = 600;
 
 
