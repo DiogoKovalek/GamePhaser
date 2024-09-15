@@ -1,0 +1,9 @@
+{
+    "packCards":{
+        "files":[
+            {"type": "image", "key": "CDBolinhaDeGolf", "url": "/Game/GameSpace/Assets/Cartas/BolinhaDeGolf.png"},
+            {"type": "image", "key": "cartaTraz", "url": "/Game/GameSpace/Assets/Cartas/cartaTraz.png"}
+        ]
+
+    }
+}
