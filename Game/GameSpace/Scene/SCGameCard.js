@@ -1,7 +1,7 @@
 
-import { CDBolinhaDeGolf } from "../Objects/Cards/CDBolinhaDeGolf.js";
-import { Baralho } from "../Objects/Cards/Baralho.js";
-import { CartaTraz } from "../Objects/Cards/CartaTraz.js";
+import { CDBolinhaDeGolf } from "../Objects/Cards/oldModel/CDBolinhaDeGolf.js";
+import { Baralho } from "../Objects/Cards/oldModel/Baralho.js";
+import { CartaTraz } from "../Objects/Cards/oldModel/CartaTraz.js";
 
 export class SCGameCard extends Phaser.Scene {
     constructor() {
