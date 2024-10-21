@@ -1,7 +1,6 @@
-
-import { CDBolinhaDeGolf } from "../Objects/Cards/oldModel/CDBolinhaDeGolf.js";
-import { Baralho } from "../Objects/Cards/oldModel/Baralho.js";
-import { CartaTraz } from "../Objects/Cards/oldModel/CartaTraz.js";
+import { Baralho } from "../Objects/Cards/Baralho.js";
+import { Card } from "../Objects/Cards/Card.js";
+import { CardRender } from "../Objects/Cards/CardRender.js";
 
 export class SCGameCard extends Phaser.Scene {
     constructor() {
@@ -13,9 +12,12 @@ export class SCGameCard extends Phaser.Scene {
         this.load.image("background", caminho + "/backgroundGameCard.png");
         this.load.image("barra", caminho + "/barra.png");
         this.load.pack("packCards", caminho + "/Cartas/packCards.json", "packCards");
+        this.load.json("CardAttributes", caminho.replace("/Assets", "") + "/Objects/Cards/CardAttributes.json");
     }
 
     create() {
+
+        
 
         //#region background e UI
         const { width, height, scaleMode } = this.scale;
@@ -59,14 +61,9 @@ export class SCGameCard extends Phaser.Scene {
 
         // Depois tem que aleatorizar as cartas do baralho
 
-        this.insertCardsByBaralhoFromHandPlayer(baralhoPlayer, playerHand, playerSlot);
-
-        for (let i = 0; i < enemyHand.length; i++) {
-            const card = new CartaTraz(this, enemySlot[i].x, enemySlot[i].y);
-            enemyHand[i] = card;
-
-        }
-
+        this.insertCardsByBaralhoFromHand(baralhoPlayer, playerHand, playerSlot);
+        this.insertCardsByBaralhoFromHand(baralhoEnemy, enemyHand, enemySlot);
+        
         //#endregion
 
 
@@ -136,7 +133,7 @@ export class SCGameCard extends Phaser.Scene {
 
             gameObject.input.enabled = false;
             
-            this.insertCardsByBaralhoFromHandPlayer(baralhoPlayer, playerHand, playerSlot);
+            this.insertCardsByBaralhoFromHand(baralhoPlayer, playerHand, playerSlot);
         });
 
         this.input.on('dragend', (pointer, gameObject, dropped) => {
@@ -154,30 +151,19 @@ export class SCGameCard extends Phaser.Scene {
         //#endregion
     }
 
-    insertCardsByBaralhoFromHandPlayer(baralhoPlayer, playerHand, playerSlot) { // melhorar o codigo
-        for (let i = 0; i < playerHand.length; i++) {
-            if (playerHand[i] == null) {
-                const card = baralhoPlayer.buyCardFromBaralho();
+    insertCardsByBaralhoFromHand(baralho, hand, slot) { // melhorar o codigo
+        for (let i = 0; i < hand.length; i++) {
+            if (hand[i] == null) {
+                const card = baralho.buyCardFromBaralho();
                 if (card != null) {
-                    card.setPosition(playerSlot[i].x, playerSlot[i].y);
-                    card.setInteractive();
-                    this.input.setDraggable(card);
-                    playerHand[i] = card;
+                    const cardR = new CardRender(this, slot[i].x, slot[i].y, card);
+                    cardR.setInteractive();
+                    this.input.setDraggable(cardR);
+                    hand[i] = cardR;
                 }else{ 
                     break;
                 }
             }
         }
     }
-
-    insertCardsByBaralhoFromHandEnemy() {
-        for (let i = 0; i < this.enemyHand.length; i++) {
-            if (this.enemyHand[i] == null) {
-                const card = this.baralhoEnemy.buyCardFromBaralho();
-                card.setPosition(this.EnemySlot[i].x, this.EnemySlot[i].y);
-                this.enemyHand[i] = card;
-            }
-        }
-    }
-
 }

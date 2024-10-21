@@ -1,0 +1,20 @@
+{
+    "BolhinhaDeGolf": {
+        "level": {
+            "1": {
+                "hp": 5,
+                "atk": 5
+            },
+            "2": {
+                "hp": 7,
+                "atk": 5
+            },
+            "3": {
+                "hp": 8,
+                "atk": 6
+            }
+        },
+        "time": 1,
+        "img": "SprBolinhaDeGolf"
+    }
+}
